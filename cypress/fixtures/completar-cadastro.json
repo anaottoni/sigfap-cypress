@@ -1,0 +1,36 @@
+{
+  "nome": "Ana Ottoni",
+  "dataNascimento": "24/07/2006",
+  "sexo": "Feminino",
+  "email": "anabitencourtottoni@gmail.com",
+  "cpf": "09664697125",
+  "senha": "Anabanana123!!",
+  "senhaConfirmar": "Anabanana123!!",
+
+  "endereco": {
+    "cep": "79117-110",
+    "numero": "1000"
+  },
+  "instituicao": {
+    "nome": "UFMS",
+    "unidade": "FACOM"
+  },
+  "formacao": {
+    "nivelAcademico": "Ensino Superior",
+    "lattes": "http://lattes.cnpq.br/6769738821292127",
+    "linkedin": "https://www.linkedin.com/in/ana-ottoni-685511298/"
+  },
+  "conhecimento": {
+    "grandeArea": "Ciências Exatas e da Terra",
+    "area": "Ciência da Computação",
+    "subArea": "Sistemas de Computação",
+    "especialidade": "Arquitetura de Sistemas de Computação"
+  },
+  "vinculo": {
+    "tipo": "Bolsista",
+    "inicioServico": "05/05/2026",
+    "regime": "Outros",
+    "funcao": "Programadora",
+    "inicioFuncao": "05/05/2026"
+  }
+}

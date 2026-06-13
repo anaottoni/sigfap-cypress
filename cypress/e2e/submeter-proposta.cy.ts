@@ -15,6 +15,8 @@ describe("Caracterização", () => {
       cy.get('[data-cy="criar-proposta"]').click();
     });
 
+    
+
     // 5. Vai para seção "Caracterização" e preenche e salva a cada sub-seção.
     it("Informações iniciais", () => {
       const { proposta, areaConhecimento } = fixture;
