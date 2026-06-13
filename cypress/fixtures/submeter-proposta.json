@@ -1,0 +1,44 @@
+{
+  "proposta": {
+    "tituloProjeto": "Projeto Teste",
+    "tipoEvento": "Seminário",
+    "estadoExecucao": "Roraima",
+    "municipioExecucao": "Mucajaí",
+    "duracao": 2,
+    "instituicaoExecutora": "FUNDA",
+    "unidadeExecutora": "MS/UFMS"
+  },
+  "areaConhecimento": {
+    "grandeArea": "Ciências Agrárias",
+    "area": "Zootecnia",
+    "subArea": "Produção Animal",
+    "especialidade": "Manejo de Animais"
+  },
+  "informacoesComplementares": {
+    "pergunta1RadioIndex": 4,
+    "pergunta2Texto": "Esse teste tem 17"
+  },
+  "abrangencia": [
+    {
+      "estado": "São Paulo",
+      "municipios": ["Adamantina", "Aguaí", "Águas da Prata"]
+    },
+    {
+      "estado": "Mato Grosso do Sul",
+      "municipios": [
+        "Alcinópolis",
+        "Antônio João",
+        "Caarapó",
+        "Rio Brilhante",
+        "Três Lagoas",
+        "Sete Quedas",
+        "Taquarussu",
+        "Ribas do Rio Pardo"
+      ]
+    }
+  ],
+  "edital": {
+    "numero": "2026-0001",
+    "nome": "Sig Cypress"
+  }
+}
