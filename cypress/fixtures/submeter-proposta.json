@@ -40,5 +40,30 @@
   "edital": {
     "numero": "2026-0001",
     "nome": "Sig Cypress"
-  }
+  },
+   "apresentacao": {
+    "pergunta221RadioIndex": 0,
+    "pergunta222Texto": "Tecnologia limpa"
+  },
+  "membros": {
+    "membroExistente": {
+      "nome": "Ana Clara Bitencourt Ottoni",
+      "instituicao": "Universidade Federal do Mato Grosso do Sul",
+      "funcao": "Coordenador"
+    },
+    "novoMembro": {
+      "nomePesquisador": "Ana Beatriz de Araujo Leite",
+      "funcao": "Articulador"
+    }
+  },
+  "atividades": [
+    {
+      "titulo": "Levantamento de requisitos para soluções sustentáveis.",
+      "descricao": "Realizar o levantamento e a análise de publicações científicas.",
+      "responsavel": "Ana Clara Bitencourt Ottoni",
+      "membros": [
+        "Ana Clara Bitencourt Ottoni"
+      ]
+    }
+  ]
 }

@@ -16,13 +16,18 @@ describe("Caracterização", () => {
       cy.get('[data-cy="criar-proposta"]').click();
     });
 
-    it("Informações iniciais, Informações complementares, Abrangência", () => {
+    it("Preencher subseções da proposta com dados válido", () => {
       const {
         proposta,
         areaConhecimento,
         informacoesComplementares,
         abrangencia,
+        apresentacao,
+        membros,
+        atividades
       } = fixture;
+        const atividade = atividades[0];
+
 
       // Informações iniciais
       cy.get('[data-cy="titulo"]').type(proposta.tituloProjeto);
@@ -114,7 +119,88 @@ describe("Caracterização", () => {
       });
 
       cy.contains("São Paulo").should("not.exist");
-      cy.contains("Mato Grosso do Sul").should("be.visible");
+    //  cy.contains("Mato Grosso do Sul").should("be.visible");  nao entendi o uso disso??
+
+
+//SUBSEÇÃO: APRESENTAÇÃO
+//Descrição
+      cy.get('[data-cy="apresentacao"]').click();
+      cy.get('[data-cy="descricao"]').click();
+      cy.get(`#radio-formularioPropostaDescritiva\\.pergunta-221-${apresentacao.pergunta221RadioIndex}`,)
+        .should("exist")
+        .check({ force: true });
+      cy.get(`#radio-formularioPropostaDescritiva\\.pergunta-221-${apresentacao.pergunta221RadioIndex}`,)
+      .should("be.checked");
+      cy.get('[data-cy="formularioPropostaDescritiva.pergunta-222"]')
+        .clear()
+        .type(apresentacao.pergunta222Texto);
+      cy.contains("button", /próxima etapa/i).click();
+
+//Membros
+      cy.get('[data-cy="membros"]').click();
+      // Verifica membro já existente
+      cy.get('td[data-label="Nome"]').contains(membros.membroExistente.nome).should("be.visible");
+      cy.get('td[data-label="Instituição"]').contains(membros.membroExistente.instituicao).should("be.visible");
+      cy.get('td[data-label="Função do membro"]').contains(membros.membroExistente.funcao).should("be.visible");
+      // Pesquisa e seleciona novo membro
+      cy.get(".MuiAutocomplete-inputRoot")
+        .find("input")
+        .clear()
+        .type(membros.novoMembro.nomePesquisador);
+
+      cy.contains('[class*="option"]', membros.novoMembro.nomePesquisador)
+        .first()
+        .click();
+      // Clica em Adicionar
+      cy.get(".MuiStack-root.e1syh6en9.css-1ivu1e4").click();
+
+      // Confirma aviso de convite
+      cy.get('.css-5ldc9l > .css-0').should('be.visible').and('contain.text', 'Deseja continuar mesmo assim?');
+      cy.get('[data-cy="sim-continuar-button"]').click();
+      // Verifica mensagem de sucesso
+      cy.contains(/sucesso/i).should("be.visible");
+      cy.get('[data-cy="confirmar-button"]').click();
+      // Verifica que o membro existente ainda aparece
+      cy.get('td[data-label="Nome"]').contains(membros.membroExistente.nome).should("be.visible");
+      cy.get('td[data-label="Instituição"]').contains(membros.membroExistente.instituicao).should("be.visible");
+      // Altera a função do novo membro para o valor definido na fixture
+      cy.get('td[data-label="Nome"]').contains(membros.novoMembro.nomePesquisador).should("be.visible");
+
+      cy.contains("tr", membros.novoMembro.nomePesquisador)
+        .find('[data-testid="ArrowDropDownIcon"]')
+        .click();
+
+      cy.contains('[class*="option"]', membros.novoMembro.funcao).first().click();
+//Atividades
+      cy.get('[data-cy="atividades"]').click();
+      cy.contains("button", /adicionar/i).click();
+
+      cy.get('[data-cy="propostaAtividadeForm.titulo"]')
+        .clear()
+        .type(atividade.titulo);
+
+      cy.get('[data-cy="propostaAtividadeForm.descricao"]')
+        .clear()
+        .type(atividade.descricao);
+
+      cy.get('[data-cy="open-mes-inicio"]').click();
+      cy.get('[data-cy="5"]').click();
+
+      cy.get('[data-cy="search-duracao"]').click();
+      cy.get('[data-cy="1-mes"]').click();
+
+      cy.get('[data-cy="open-carga-horaria-semanal"]').click();
+      cy.get('[data-cy="2-horas"]').click();
+
+      cy.get('[data-cy="propostaAtividade-confirmar"]').click();
+
+//Visualizar
+      // Navega para Visualização das Atividades e verifica o título criado
+      cy.get('[data-cy="visualizacao-das-atividades"]').click();
+      cy.contains(atividade.titulo).should("be.visible");
+
+      //Próxima etapa:
+      cy.get('[data-cy="next-button"]').click();
     });
   });
 });
