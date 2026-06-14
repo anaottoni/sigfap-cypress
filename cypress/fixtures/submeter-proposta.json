@@ -1,39 +1,39 @@
 {
   "proposta": {
     "tituloProjeto": "Projeto Teste",
-    "tipoEvento": "Seminário",
-    "estadoExecucao": "Roraima",
-    "municipioExecucao": "Mucajaí",
+    "tipoEvento": "seminario",
+    "estadoExecucao": "mato-grosso-do-sul",
+    "municipioExecucao": "campo-grande",
     "duracao": 2,
-    "instituicaoExecutora": "FUNDA",
-    "unidadeExecutora": "MS/UFMS"
+    "instituicaoExecutora": "funda-fundacao",
+    "unidadeExecutora": "ms-ufms"
   },
   "areaConhecimento": {
-    "grandeArea": "Ciências Agrárias",
-    "area": "Zootecnia",
-    "subArea": "Produção Animal",
-    "especialidade": "Manejo de Animais"
+    "grandeArea": "ciencias-agrarias",
+    "area": "zootecnia",
+    "subArea": "producao-animal",
+    "especialidade": "manejo-de-animais"
   },
   "informacoesComplementares": {
-    "pergunta1RadioIndex": 4,
+    "pergunta1RadioIndex": 3,
     "pergunta2Texto": "Esse teste tem 17"
   },
   "abrangencia": [
     {
-      "estado": "São Paulo",
-      "municipios": ["Adamantina", "Aguaí", "Águas da Prata"]
+      "estado": "sao-paulo",
+      "municipios": ["adamantina", "aguai", "aguas-da-prata"]
     },
     {
-      "estado": "Mato Grosso do Sul",
+      "estado": "mato-grosso-do-sul",
       "municipios": [
-        "Alcinópolis",
-        "Antônio João",
-        "Caarapó",
-        "Rio Brilhante",
-        "Três Lagoas",
-        "Sete Quedas",
-        "Taquarussu",
-        "Ribas do Rio Pardo"
+        "alcinopolis",
+        "antonio-joao",
+        "caarapo",
+        "rio-brilhante",
+        "tres-lagoas",
+        "sete-quedas",
+        "taquarussu",
+        "ribas-do-rio-pardo"
       ]
     }
   ],
