@@ -1,5 +1,6 @@
 import fixture from "../fixtures/submeter-proposta.json";
 
+
 describe("Caracterização", () => {
   context("Submissão de Proposta com dados válidos", () => {
     before(() => {
@@ -114,6 +115,107 @@ describe("Caracterização", () => {
 
       cy.contains("São Paulo").should("not.exist");
       cy.contains("Mato Grosso do Sul").should("be.visible");
+    });
+  });
+});
+
+
+//De acordo com o ID: US-16 "Adicionar anexos"
+//Quem realiza é o coordenador
+describe("Anexos", () => {
+  context("Submissão na seção de Anexos com dados válidos", () => {
+    before(() => {
+      cy.visit("/");
+
+      // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
+      cy.get(".css-18juej0.ekicsf50").first().click();
+
+      // 3. Procura o edital [Edital 2026-0001 Sig Cypress] e clica no botão Visualizar Edital.
+      cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
+
+      // 4. Verifica se está no edital de interesse e clica no botão Criar Proposta.
+      cy.get('[data-cy="criar-proposta"]').click();
+
+      // Acessa a seção de Anexos
+      cy.get('[data-cy="anexos"]').click();
+    });
+
+    //De acordo com o ID: US-17 "Anexar documentos pessoais"
+    it("Documentos pessoais com dados válidos", () => {
+
+      
+      //Clica na seção de Documentos pessoais
+      cy.get('[data-cy="documentos-pessoais" ]').click();
+
+      // Seleciona categoria do documento
+      cy.get('[data-cy="select-categories-usuario-anexo"]').click();
+      cy.contains('Documento de identificação com foto').click(); //a categoria que está no seletor
+
+      // Faz upload do arquivo
+      cy.get('[data-cy="usuarioAnexo-upload"]')
+        .selectFile('cypress/fixtures/Documento.pdf'); //documento pdf de exemplo na pasta fixtures
+
+      // Clica no botão de salvar
+      cy.get('[data-cy="menu-salvar"]').click();
+    });
+
+    //De acordo com o ID: US-18 "Anexar documentos da proposta"
+    it("Documentos da Proposta com dados válidos", () => {
+      //Clica na seção de Documentos da Proposta
+      cy.get('[data-cy="documentos-da-proposta"]').click();
+
+      // Seleciona categoria do documento 
+      cy.get('[data-cy="open-select-categories-documento"]').click();
+      cy.contains('Documento 1').click(); //a categoria que está no seletor
+
+      // Faz upload do arquivo
+      cy.get('[data-cy="documentoPropostaAnexo-upload"]')
+        .selectFile('cypress/fixtures/Documento1.pdf'); //documento pdf de exemplo na pasta fixtures
+      
+      // Clica no botão de salvar
+      cy.get('[data-cy="menu-salvar"]').click();
+    });
+  });
+});
+
+describe("Finalização", () => {
+  context("Finalizar a submissão da proposta", () => {
+     before(() => {
+      cy.visit("/");
+
+      // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
+      cy.get(".css-18juej0.ekicsf50").first().click();
+
+      // 3. Procura o edital [Edital 2026-0001 Sig Cypress] e clica no botão Visualizar Edital.
+      cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
+
+      // 4. Verifica se está no edital de interesse e clica no botão Criar Proposta.
+      cy.get('[data-cy="criar-proposta"]').click();
+
+      // Acessa a seção de Finalização
+      cy.get('[data-cy="finalizacao"]').click();
+    });
+
+    it("Visualizar proposta", () => {
+      //Clina na seção visualizar proposta
+      cy.get('[data-cy="visualizacao-da-proposta"]').click();
+
+      // Clica no botão de salvar
+      cy.get('[data-cy="menu-salvar"]').click();
+    });
+    //De acordo com o ID: US-20 "Termo de aceite"
+    it("Preencher Termo de aceite", () => {
+      //Clina na seção termo de aceite
+      cy.get('[data-cy="termo-de-aceite"]').click();
+
+      //Preenche o campo de aceite do termo
+      cy.get('[data-cy="termo-de-aceite-aceito-box"]').click();
+
+      // Clica no botão de salvar
+      cy.get('[data-cy="menu-salvar"]').click();
+
+      //Clica no botão verificar pendências
+      cy.get('[data-cy="menu-verificar-pendencias"]').click();
     });
   });
 });
