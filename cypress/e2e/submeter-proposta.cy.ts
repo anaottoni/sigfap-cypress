@@ -6,12 +6,9 @@ describe("Caracterização", () => {
     before(() => {
       cy.typeLogin("anabitencourtottoni@gmail.com", "Anabanana123!!");
       cy.get('[data-cy="editais-ver-mais"]').click();
-      cy.contains(
-        "p.css-1jf25rm",
-        `Edital ${fixture.edital.numero} ${fixture.edital.nome}`,
-      )
-        .closest(".css-1c1blcj")
-        .find("button.sc-dzsvhq.coiQbB")
+      cy.contains(fixture.edital.numero)
+        .closest(".e16onss632")
+        .find(".e1krp9ay13")
         .click();
       cy.get('[data-cy="criar-proposta"]').click();
     });
@@ -41,7 +38,7 @@ describe("Caracterização", () => {
       cy.get('[data-cy="open-municipio-execucao-evento"]').click();
       cy.get(`[data-cy="${proposta.municipioExecucao}"]`).click();
 
-      cy.get('[data-cy="duracao"]').type(String(proposta.duracao));
+      cy.get('[data-cy="duracao"]').clear().type(String(proposta.duracao));
 
       cy.get('[data-cy="open-instituicao-executora-id"]').click();
       cy.get(`[data-cy="${proposta.instituicaoExecutora}"]`).click();
@@ -143,8 +140,7 @@ describe("Caracterização", () => {
       cy.get('td[data-label="Instituição"]').contains(membros.membroExistente.instituicao).should("be.visible");
       cy.get('td[data-label="Função do membro"]').contains(membros.membroExistente.funcao).should("be.visible");
       // Pesquisa e seleciona novo membro
-      cy.get(".MuiAutocomplete-inputRoot")
-        .find("input")
+      cy.get('[data-cy="nome-do-pesquisador"]')
         .clear()
         .type(membros.novoMembro.nomePesquisador);
 
@@ -152,7 +148,7 @@ describe("Caracterização", () => {
         .first()
         .click();
       // Clica em Adicionar
-      cy.get(".MuiStack-root.e1syh6en9.css-1ivu1e4").click();
+      cy.get('.css-l8imoj').click();
 
       // Confirma aviso de convite
       cy.get('.css-5ldc9l > .css-0').should('be.visible').and('contain.text', 'Deseja continuar mesmo assim?');
@@ -167,10 +163,17 @@ describe("Caracterização", () => {
       cy.get('td[data-label="Nome"]').contains(membros.novoMembro.nomePesquisador).should("be.visible");
 
       cy.contains("tr", membros.novoMembro.nomePesquisador)
-        .find('[data-testid="ArrowDropDownIcon"]')
+        .find('button[aria-label="Abrir"]')
         .click();
 
-      cy.contains('[class*="option"]', membros.novoMembro.funcao).first().click();
+      cy.contains("tr", membros.novoMembro.nomePesquisador)
+        .find('input[role="combobox"]')
+        .clear()
+        .type(membros.novoMembro.funcao);
+
+      cy.get('[role="option"]')
+        .contains(membros.novoMembro.funcao)
+        .click();
 //Atividades
       cy.get('[data-cy="atividades"]').click();
       cy.contains("button", /adicionar/i).click();
@@ -184,7 +187,7 @@ describe("Caracterização", () => {
         .type(atividade.descricao);
 
       cy.get('[data-cy="open-mes-inicio"]').click();
-      cy.get('[data-cy="5"]').click();
+      cy.get('[data-cy="2"]').click();
 
       cy.get('[data-cy="search-duracao"]').click();
       cy.get('[data-cy="1-mes"]').click();
@@ -201,34 +204,25 @@ describe("Caracterização", () => {
 
       //Próxima etapa:
       cy.get('[data-cy="next-button"]').click();
-    });
-  });
-});
-
 
 //De acordo com o ID: US-16 "Adicionar anexos"
 //Quem realiza é o coordenador
-describe("Anexos", () => {
-  context("Submissão na seção de Anexos com dados válidos", () => {
-    before(() => {
-      cy.visit("/");
-
       // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
-      cy.get(".css-18juej0.ekicsf50").first().click();
+     
+    //  cy.get('[data-cy="anexos"]').click();
+      // cy.get(".css-18juej0.ekicsf50").first().click(); - habilitar quando todos tiverem suas etapas 
 
       // 3. Procura o edital [Edital 2026-0001 Sig Cypress] e clica no botão Visualizar Edital.
-      cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
+     // cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
 
       // 4. Verifica se está no edital de interesse e clica no botão Criar Proposta.
-      cy.get('[data-cy="criar-proposta"]').click();
+   //   cy.get('[data-cy="criar-proposta"]').click();
 
       // Acessa a seção de Anexos
       cy.get('[data-cy="anexos"]').click();
-    });
 
     //De acordo com o ID: US-17 "Anexar documentos pessoais"
-    it("Documentos pessoais com dados válidos", () => {
-
+    //Documentos pessoas válidos 
       
       //Clica na seção de Documentos pessoais
       cy.get('[data-cy="documentos-pessoais" ]').click();
@@ -243,11 +237,10 @@ describe("Anexos", () => {
 
       // Clica no botão de salvar
       cy.get('[data-cy="menu-salvar"]').click();
-    });
 
     //De acordo com o ID: US-18 "Anexar documentos da proposta"
-    it("Documentos da Proposta com dados válidos", () => {
-      //Clica na seção de Documentos da Proposta
+    //Documentos com propostas válidas  
+    //Clica na seção de Documentos da Proposta
       cy.get('[data-cy="documentos-da-proposta"]').click();
 
       // Seleciona categoria do documento 
@@ -260,14 +253,8 @@ describe("Anexos", () => {
       
       // Clica no botão de salvar
       cy.get('[data-cy="menu-salvar"]').click();
-    });
-  });
-});
 
-describe("Finalização", () => {
-  context("Finalizar a submissão da proposta", () => {
-     before(() => {
-      cy.visit("/");
+      //Finalização
 
       // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
       cy.get(".css-18juej0.ekicsf50").first().click();
@@ -280,17 +267,16 @@ describe("Finalização", () => {
 
       // Acessa a seção de Finalização
       cy.get('[data-cy="finalizacao"]').click();
-    });
 
-    it("Visualizar proposta", () => {
+    //Visualizar proposta:
       //Clina na seção visualizar proposta
       cy.get('[data-cy="visualizacao-da-proposta"]').click();
 
       // Clica no botão de salvar
       cy.get('[data-cy="menu-salvar"]').click();
-    });
+  
     //De acordo com o ID: US-20 "Termo de aceite"
-    it("Preencher Termo de aceite", () => {
+    //Preencher termo de aceite válido  
       //Clina na seção termo de aceite
       cy.get('[data-cy="termo-de-aceite"]').click();
 
