@@ -202,83 +202,47 @@ describe("Caracterização", () => {
       cy.get('[data-cy="visualizacao-das-atividades"]').click();
       cy.contains(atividade.titulo).should("be.visible");
 
-      //Próxima etapa:
-      cy.get('[data-cy="next-button"]').click();
-
-//De acordo com o ID: US-16 "Adicionar anexos"
-//Quem realiza é o coordenador
-      // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
-     
-    //  cy.get('[data-cy="anexos"]').click();
-      // cy.get(".css-18juej0.ekicsf50").first().click(); - habilitar quando todos tiverem suas etapas 
-
-      // 3. Procura o edital [Edital 2026-0001 Sig Cypress] e clica no botão Visualizar Edital.
-     // cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
-
-      // 4. Verifica se está no edital de interesse e clica no botão Criar Proposta.
-   //   cy.get('[data-cy="criar-proposta"]').click();
-
-      // Acessa a seção de Anexos
+      //Próxima etapa: Anexos e Documentos pessoais
+      //cy.get('[data-cy="next-button"]').click();
+      //ou
       cy.get('[data-cy="anexos"]').click();
-
-    //De acordo com o ID: US-17 "Anexar documentos pessoais"
-    //Documentos pessoas válidos 
-      
-      //Clica na seção de Documentos pessoais
       cy.get('[data-cy="documentos-pessoais" ]').click();
-
-      // Seleciona categoria do documento
-      cy.get('[data-cy="select-categories-usuario-anexo"]').click();
-      cy.contains('Documento de identificação com foto').click(); //a categoria que está no seletor
-
-      // Faz upload do arquivo
-      cy.get('[data-cy="usuarioAnexo-upload"]')
-        .selectFile('cypress/fixtures/Documento.pdf'); //documento pdf de exemplo na pasta fixtures
-
-      // Clica no botão de salvar
+      cy.get('[data-cy="select-categories-criado-por-usu"]').click();
+      cy.get('[data-cy="documento-de-identificacao-com-f"]').click();
+      cy.get('[data-cy="criadoPor.usuarioAnexo-upload"]').selectFile(
+        "cypress/fixtures/Documento.pdf",
+        { force: true },
+      );
       cy.get('[data-cy="menu-salvar"]').click();
 
-    //De acordo com o ID: US-18 "Anexar documentos da proposta"
-    //Documentos com propostas válidas  
-    //Clica na seção de Documentos da Proposta
-      cy.get('[data-cy="documentos-da-proposta"]').click();
 
-      // Seleciona categoria do documento 
-      cy.get('[data-cy="open-select-categories-documento"]').click();
-      cy.contains('Documento 1').click(); //a categoria que está no seletor
-
-      // Faz upload do arquivo
-      cy.get('[data-cy="documentoPropostaAnexo-upload"]')
-        .selectFile('cypress/fixtures/Documento1.pdf'); //documento pdf de exemplo na pasta fixtures
       
-      // Clica no botão de salvar
+      //Próxima etapa: Documentos da proposta
+      cy.get('[data-cy="next-button"]').click();
+      //ou
+      //cy.get('[data-cy="documentos-da-proposta"]').click();
+      cy.get('[data-cy="select-categories-documento-prop"]').click();
+      cy.get('[data-cy="carta-de-apresentacao"]').click();
+       cy.get('[data-cy="documentoPropostaAnexo-upload"]').selectFile(
+        "cypress/fixtures/Documento1.pdf",
+        { force: true },
+      );
+
       cy.get('[data-cy="menu-salvar"]').click();
 
-      //Finalização
-
-      // 2. O usuário vai para área com todos os editais abertos (Clicar no botão Ver Mais na tabela Editais Abertos na home do sistema).
-      cy.get(".css-18juej0.ekicsf50").first().click();
-
-      // 3. Procura o edital [Edital 2026-0001 Sig Cypress] e clica no botão Visualizar Edital.
-      cy.contains(".sc-dzsvhq.coiQbB", fixture.edital.numero).click();
-
-      // 4. Verifica se está no edital de interesse e clica no botão Criar Proposta.
-      cy.get('[data-cy="criar-proposta"]').click();
-
-      // Acessa a seção de Finalização
-      cy.get('[data-cy="finalizacao"]').click();
-
-    //Visualizar proposta:
+      //Próxima etapa: Finalização e Visualização da proposta
+      cy.get('[data-cy="next-button"]').click();
+      //ou
+      //cy.get('[data-cy="finalizacao"]').click();
+      //Visualizar proposta:
       //Clina na seção visualizar proposta
-      cy.get('[data-cy="visualizacao-da-proposta"]').click();
+      //cy.get('[data-cy="visualizacao-da-proposta"]').click();
 
-      // Clica no botão de salvar
-      cy.get('[data-cy="menu-salvar"]').click();
   
-    //De acordo com o ID: US-20 "Termo de aceite"
-    //Preencher termo de aceite válido  
-      //Clina na seção termo de aceite
-      cy.get('[data-cy="termo-de-aceite"]').click();
+      //Próxima etapa: Termo de aceite
+      cy.get('[data-cy="next-button"]').click();
+      //ou
+      //cy.get('[data-cy="termo-de-aceite"]').click();
 
       //Preenche o campo de aceite do termo
       cy.get('[data-cy="termo-de-aceite-aceito-box"]').click();
@@ -288,6 +252,9 @@ describe("Caracterização", () => {
 
       //Clica no botão verificar pendências
       cy.get('[data-cy="menu-verificar-pendencias"]').click();
+
+      //Submete a proposta
+      cy.get('.css-1alpf6f ebva1ex2').click();
     });
   });
 });
