@@ -1,5 +1,5 @@
 describe("Edição de Perfil do Pesquisador", () => {
-  beforeEach(() => {
+  before(() => {
     cy.fixture("completar-cadastro.json").as("dados");
 
     // 1. Realiza o login
