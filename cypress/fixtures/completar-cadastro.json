@@ -1,14 +1,13 @@
 {
   "nome": "Ana Ottoni",
-  "dataNascimento": "24/07/2006",
+  "dataNascimento": "11/07/2000",
   "sexo": "Feminino",
   "email": "anabitencourtottoni@gmail.com",
-  "cpf": "09664697125",
   "senha": "Anabanana123!!",
   "senhaConfirmar": "Anabanana123!!",
 
   "endereco": {
-    "cep": "79117-110",
+    "cep": "79064-011",
     "numero": "1000"
   },
   "instituicao": {
@@ -17,8 +16,8 @@
   },
   "formacao": {
     "nivelAcademico": "Ensino Superior",
-    "lattes": "http://lattes.cnpq.br/6769738821292127",
-    "linkedin": "https://www.linkedin.com/in/ana-ottoni-685511298/"
+    "lattes": "http://lattes.cnpq.br",
+    "linkedin": "https://www.linkedin.com"
   },
   "conhecimento": {
     "grandeArea": "Ciências Exatas e da Terra",

@@ -6,12 +6,10 @@ describe("Caracterização", () => {
     { testIsolation: false },
     () => {
       before(() => {
-        // FORÇA O NAVEGADOR A LIMPAR TUDO E FICAR DESLOGADO NO INÍCIO DO ARQUIVO
         cy.clearAllCookies();
         cy.clearAllLocalStorage();
         cy.clearAllSessionStorage();
 
-        // Agora o campo de email SEMPRE vai aparecer aqui
         cy.typeLogin("anabitencourtottoni@gmail.com", "Anabanana123!!");
         cy.get('[data-cy="editais-ver-mais"]').click();
         cy.contains(fixture.edital.numero)
@@ -125,9 +123,9 @@ describe("Caracterização", () => {
         cy.contains("São Paulo").should("not.exist");
       });
 
-      it("Preencher subseção de coordenação com dados válidos", function () {
+      it("Preencher subseção de coordenação com dados válidos", () => {
         const { coordenacao } = fixture;
-        // Graças ao testIsolation: false, este it começa exatamente onde a abrangência terminou.
+
         cy.get('[data-cy="next-button"]').click();
 
         // Passo 3
