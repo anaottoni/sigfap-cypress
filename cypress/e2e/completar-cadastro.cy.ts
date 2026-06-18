@@ -1,5 +1,5 @@
 describe("Edição de Perfil do Pesquisador", () => {
-  beforeEach(() => {
+  before(() => {
     cy.fixture("completar-cadastro.json").as("dados");
 
     // 1. Realiza o login
@@ -99,30 +99,41 @@ describe("Edição de Perfil do Pesquisador", () => {
       });
 
     // Passos 28 e 29
-    cy.get('[data-cy="search-tipo-vinculo-instituciona"]').clear().type(
-      dados.vinculo.tipo,
-    );
+    cy.get('[data-cy="search-tipo-vinculo-instituciona"]')
+      .clear()
+      .type(dados.vinculo.tipo);
     cy.get('[data-cy="bolsista"]').click();
 
     // Passo 30
-    cy.get('[data-cy="possui-vinculo-empregaticio-box"]').click();
+    cy.get('[data-cy="possui-vinculo-empregaticio-box"]')
+      .parent()
+      .invoke("attr", "aria-checked")
+      .then((estado) => {
+        if (estado !== "true") {
+          cy.get('[data-cy="possui-vinculo-empregaticio-box"]')
+            .parent()
+            .click();
+        }
+      });
 
     // Passo 31
-    cy.get('[data-cy="vinculoInstitucional.inicioServico"]').clear().type(
-      dados.vinculo.inicioServico,
-    );
+    cy.get('[data-cy="vinculoInstitucional.inicioServico"]')
+      .clear()
+      .type(dados.vinculo.inicioServico);
 
     // Passos 32 e 33
-    cy.get('[data-cy="search-regime-trabalho-id"]').clear().type(dados.vinculo.regime);
+    cy.get('[data-cy="search-regime-trabalho-id"]')
+      .clear()
+      .type(dados.vinculo.regime);
     cy.get('[data-cy="outros"]:visible').click();
 
     // Passos 34 e 35
-    cy.get('[data-cy="vinculoInstitucional.funcao"]').clear().type(
-      dados.vinculo.funcao,
-    );
-    cy.get('[data-cy="vinculoInstitucional.inicioFuncao"]').clear().type(
-      dados.vinculo.inicioFuncao,
-    );
+    cy.get('[data-cy="vinculoInstitucional.funcao"]')
+      .clear()
+      .type(dados.vinculo.funcao);
+    cy.get('[data-cy="vinculoInstitucional.inicioFuncao"]')
+      .clear()
+      .type(dados.vinculo.inicioFuncao);
 
     // Passo 36
     cy.get('[data-cy="next-button"]').click();
