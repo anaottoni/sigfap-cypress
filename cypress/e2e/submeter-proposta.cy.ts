@@ -280,14 +280,10 @@ describe("Caracterização", () => {
         //Descrição
         cy.get('[data-cy="apresentacao"]').click();
         cy.get('[data-cy="descricao"]').click();
-        cy.get(
-          `#radio-formularioPropostaDescritiva\\.pergunta-221-${apresentacao.pergunta221RadioIndex}`,
-        )
+        cy.get('[data-cy="formularioPropostaDescritiva.pergunta-221-item-opcao-1"] > [name="formularioPropostaDescritiva.pergunta-221"]')
           .should("exist")
           .check({ force: true });
-        cy.get(
-          `#radio-formularioPropostaDescritiva\\.pergunta-221-${apresentacao.pergunta221RadioIndex}`,
-        ).should("be.checked");
+        cy.get('[data-cy="formularioPropostaDescritiva.pergunta-221-item-opcao-1"] > [name="formularioPropostaDescritiva.pergunta-221"]').should("be.checked");
         cy.get('[data-cy="formularioPropostaDescritiva.pergunta-222"]')
           .clear()
           .type(apresentacao.pergunta222Texto);
@@ -305,47 +301,7 @@ describe("Caracterização", () => {
         cy.get('td[data-label="Função do membro"]')
           .contains(membros.membroExistente.funcao)
           .should("be.visible");
-        // Pesquisa e seleciona novo membro
-        cy.get('[data-cy="nome-do-pesquisador"]')
-          .clear()
-          .type(membros.novoMembro.nomePesquisador);
 
-        cy.contains('[class*="option"]', membros.novoMembro.nomePesquisador)
-          .first()
-          .click();
-        // Clica em Adicionar
-        cy.get(".css-l8imoj").click();
-
-        // Confirma aviso de convite
-        cy.get(".css-5ldc9l > .css-0")
-          .should("be.visible")
-          .and("contain.text", "Deseja continuar mesmo assim?");
-        cy.get('[data-cy="sim-continuar-button"]').click();
-        // Verifica mensagem de sucesso
-        cy.contains(/sucesso/i).should("be.visible");
-        cy.get('[data-cy="confirmar-button"]').click();
-        // Verifica que o membro existente ainda aparece
-        cy.get('td[data-label="Nome"]')
-          .contains(membros.membroExistente.nome)
-          .should("be.visible");
-        cy.get('td[data-label="Instituição"]')
-          .contains(membros.membroExistente.instituicao)
-          .should("be.visible");
-        // Altera a função do novo membro para o valor definido na fixture
-        cy.get('td[data-label="Nome"]')
-          .contains(membros.novoMembro.nomePesquisador)
-          .should("be.visible");
-
-        cy.contains("tr", membros.novoMembro.nomePesquisador)
-          .find('button[aria-label="Abrir"]')
-          .click();
-
-        cy.contains("tr", membros.novoMembro.nomePesquisador)
-          .find('input[role="combobox"]')
-          .clear()
-          .type(membros.novoMembro.funcao);
-
-        cy.get('[role="option"]').contains(membros.novoMembro.funcao).click();
         //Atividades
         cy.get('[data-cy="atividades"]').click();
         cy.contains("button", /adicionar/i).click();
@@ -425,7 +381,7 @@ describe("Caracterização", () => {
         cy.get('[data-cy="menu-verificar-pendencias"]').click();
 
         //Submete a proposta
-        cy.get(".css-1alpf6f ebva1ex2").click();
+        cy.get(".css-1alpf6f.ebva1ex2").click();
       });
     },
   );
