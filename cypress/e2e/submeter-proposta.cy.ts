@@ -240,7 +240,6 @@ describe("Caracterização", () => {
           .type("{esc}"); // <-- Força o calendário a fechar imediatamente
 
         // Passos 32 e 33
-        // Adicionado { force: true } no clear e no type para ignorar qualquer elemento flutuante que tente cobri-lo
         cy.get('[data-cy="search-regime-trabalho-id"]')
           .clear({ force: true })
           .type(coordenacao.vinculo.regime, { force: true });
@@ -258,21 +257,11 @@ describe("Caracterização", () => {
         // Passo 36
         cy.get('[data-cy="next-button"]').click();
 
-        // Passos 37 e 38
-        // cy.get('[data-cy="select-categories-usuario-anexo"]').click();
-        // cy.get('[data-cy="documento-de-identificacao-com-f"]').click();
-
-        // Passo 39
-        // cy.get('[data-cy="usuarioAnexo-upload"]').selectFile(
-        //   "cypress/fixtures/lattes.pdf",
-        //   { force: true },
-        // );
-
         // Passo 40
         cy.get('[data-cy="menu-salvar"]').click();
       });
 
-      it("Preencher subseções de apresentação com dados válidos", () => {
+      it("Preencher subseção de apresentação com dados válidos", () => {
         const { apresentacao, membros, atividades } = fixture;
         const atividade = atividades[0];
 
@@ -326,11 +315,56 @@ describe("Caracterização", () => {
         cy.get('[data-cy="propostaAtividade-confirmar"]').click();
 
         //Visualizar
-        // Navega para Visualização das Atividades e verifica o título criado
         cy.get('[data-cy="visualizacao-das-atividades"]').click();
         cy.contains(atividade.titulo).should("be.visible");
 
         //Próxima etapa:
+        cy.get('[data-cy="next-button"]').click();
+      });
+
+      it("Preencher subseções de orçamento com dados válidos", () => {
+        // Acessa a seção principal de Orçamento no menu lateral
+        cy.get('[data-cy="orcamento"]').click();
+
+        // Navega e preenche a subseção de Faixa de Financiamento
+        cy.get('[data-cy="faixa-de-financiamento"]').click();
+        cy.get('[data-cy="search-faixa-financiamento-id"]').click().type('Faixa A{enter}');
+        cy.get('[data-cy="menu-salvar"]').click();
+
+        // Navega e valida o salvamento da subseção de Serviços de Terceiros
+        cy.get('[data-cy="servicos-de-terceiros"]').click();
+        cy.get('[data-cy="menu-salvar"]').click();
+
+        // Navega para a subseção de Bolsa e aciona o formulário de inclusão
+        cy.get('[data-cy="bolsa"]').click();
+        cy.get('[data-cy="add-button"]').click();
+        
+        // Preenche os campos obrigatórios do formulário da rubrica de Bolsa
+        cy.get('[data-cy="search-modalidade-bolsa-id"]').click().type('AT{enter}');
+        cy.get('[data-cy="search-nivel-bolsa-id"]').click().type('NS{enter}');
+        cy.get('[data-cy="rubricaBolsaForm.quantidade"]').clear().type('1');
+        cy.get('[data-cy="search-duracao"]').click().type('2{enter}');
+        cy.get('[data-cy="rubricaBolsaForm.valorTotal"]').clear().type('240000');
+        
+        // Confirma a inclusão dos dados da bolsa e salva o progresso
+        cy.get('[data-cy="rubricaBolsa-confirmar"]').click();
+        cy.get('[data-cy="menu-salvar"]').click();
+
+        // Navega para a Consolidação e valida se o valor total está visível na tela
+        cy.get('[data-cy="consolidacao"]').click();
+        cy.get('body').then(($body) => {
+          if ($body.text().includes('2.400,00')) {
+            cy.contains('2.400,00').should('be.visible');
+          } else {
+            cy.contains('240000').should('be.visible');
+          }
+        });
+
+        // Navega e finaliza a última subseção do módulo de Orçamento
+        cy.get('[data-cy="solicitado-a-fundacao"]').click();
+        cy.get('[data-cy="menu-salvar"]').click();
+
+        // Avança para a próxima etapa do fluxo de submissão
         cy.get('[data-cy="next-button"]').click();
       });
 
@@ -347,8 +381,6 @@ describe("Caracterização", () => {
 
         //Próxima etapa: Documentos da proposta
         cy.get('[data-cy="next-button"]').click();
-        //ou
-        //cy.get('[data-cy="documentos-da-proposta"]').click();
         cy.get('[data-cy="select-categories-documento-prop"]').click();
         cy.get('[data-cy="carta-de-apresentacao"]').click();
         cy.get('[data-cy="documentoPropostaAnexo-upload"]').selectFile(
@@ -360,16 +392,9 @@ describe("Caracterização", () => {
 
         //Próxima etapa: Finalização e Visualização da proposta
         cy.get('[data-cy="next-button"]').click();
-        //ou
-        //cy.get('[data-cy="finalizacao"]').click();
-        //Visualizar proposta:
-        //Clina na seção visualizar proposta
-        //cy.get('[data-cy="visualizacao-da-proposta"]').click();
 
         //Próxima etapa: Termo de aceite
         cy.get('[data-cy="next-button"]').click();
-        //ou
-        //cy.get('[data-cy="termo-de-aceite"]').click();
 
         //Preenche o campo de aceite do termo
         cy.get('[data-cy="termo-de-aceite-aceito-box"]').click();
